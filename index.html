@@ -190,7 +190,7 @@ document.querySelector("#videoButton").addEventListener("click", function() {
           video.play();
       };
 
-      $('#webcam-popup .takephoto').click(function(){
+      .click(function(){
           // Copying the image in a temporary canvas
           var temp = document.createElement('canvas');
 
@@ -207,11 +207,11 @@ document.querySelector("#videoButton").addEventListener("click", function() {
           );
 
           // Resize it to the size of our canvas
-          canvas.style.height    = parseInt( canvas.offsetWidth * tempScale );
-          canvas.width        = canvas.offsetWidth;
-          canvas.height        = canvas.offsetHeight;
-          var context        = canvas.getContext("2d"),
-              scale        = canvas.width/temp.width;
+          canvas.style.height = parseInt( canvas.offsetWidth * tempScale );
+          canvas.width = canvas.offsetWidth;
+          canvas.height = canvas.offsetHeight;
+          var context = canvas.getContext("2d");
+          var scale = canvas.width/temp.width;
           context.scale(scale, scale);
           context.drawImage(bigimage, 0, 0);
       });
