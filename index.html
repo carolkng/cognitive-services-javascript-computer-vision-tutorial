@@ -42,7 +42,7 @@
                   my online camera
                   <video muted autoplay></video>
                   <canvas></canvas>
-                  <button>Take Photo!</button>
+                  <button id="photoButton">Take Photo!</button>
                   <button id="videoButton">Start the camera</button>
               </div>
             </div>
@@ -190,7 +190,7 @@ document.querySelector("#videoButton").addEventListener("click", function() {
           video.play();
       };
 
-      .click(function(){
+      myOnlineCamera.querySelector('#photoButton').addEventListener("click", function(){
           // Copying the image in a temporary canvas
           var temp = document.createElement('canvas');
 
