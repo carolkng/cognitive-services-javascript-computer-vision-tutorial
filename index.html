@@ -200,7 +200,7 @@ document.querySelector("#videoButton").addEventListener("click", function() {
           var tempcontext = temp.getContext("2d"),
               tempScale = (temp.height/temp.width);
 
-          temp.drawImage(
+          temp.getContext("2d").drawImage(
               video,
               0, 0,
               video.offsetWidth, video.offsetHeight
@@ -213,7 +213,7 @@ document.querySelector("#videoButton").addEventListener("click", function() {
           var context = canvas.getContext("2d");
           var scale = canvas.width/temp.width;
           context.scale(scale, scale);
-          context.drawImage(bigimage, 0, 0);
+          context.drawImage(temp, 0, 0);
       });
   };
 });
