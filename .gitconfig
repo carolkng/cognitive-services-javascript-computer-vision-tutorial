@@ -1,3 +1,5 @@
 [user]
 	name = Carol Ng
 	email = ng.km.carol@gmail.com
+[push]
+	default = simple
