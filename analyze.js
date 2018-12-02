@@ -10,14 +10,12 @@ var common = (function()
     var navigationArray;
     
     var uriBasePreRegion = "https://";
-    var uriBasePostRegion = ".api.cognitive.microsoft.com/vision";
+    var uriBasePostRegionAnalyze = ".api.cognitive.microsoft.com/vision/";
+    var uriBasePostRegionEmotion = ".api.cognitive.microsoft.com/vision/";
+    var uriBasePostRegion = ".api.cognitive.microsoft.com/face/";
+  
     var uriBaseAnalyze = "v1.0/analyze";
-    var uriBaseEmotion = "v1.0/emotion
-    var uriBaseLandmark = "v1.0/models/landmarks/analyze";
-    var uriBaseCelebrities = "v1.0/models/celebrities/analyze";
-    var uriBaseThumbnail = "v1.0/generateThumbnail";
-    var uriBaseOcr = "v1.0/ocr";
-    var uriBaseHandwriting = "v1.0/recognizeText";
+    var uriBaseEmotion = "v1.0/detect";
 
     
     var subscriptionChange = function()
@@ -118,16 +116,11 @@ var common = (function()
         getQueryVariable:       getQueryVariable,
         subscriptionChange:     subscriptionChange,
         imageLoadError:         imageLoadError,
-        process:                {env: process},
         
         uriBasePreRegion:       uriBasePreRegion,
         uriBasePostRegion:      uriBasePostRegion,
         uriBaseAnalyze:         uriBaseAnalyze,
-        uriBaseLandmark:        uriBaseLandmark,
-        uriBaseCelebrities:     uriBaseCelebrities,
-        uriBaseThumbnail:       uriBaseThumbnail,
-        uriBaseOcr:             uriBaseOcr,
-        uriBaseHandwriting:     uriBaseHandwriting
+        uriBaseEmotion:         uriBaseEmotion,
     };
 })();
 
@@ -153,18 +146,14 @@ function analyzeButtonClick() {
  */
 function AnalyzeImage(sourceImageUrl, responseTextArea, captionSpan) {
     // Request parameters.
-    var params = {
-        "visualFeatures": "Categories,Description,Color",
-        "details": "",
-        "language": "en",
-    };
+    var params = { "returnFaceAttributes": "emotion" };
   
     // Perform the REST API call.
     $.ajax({
         url: common.uriBasePreRegion + 
              document.getElementById("subscriptionRegionSelect").value + 
              common.uriBasePostRegion + 
-             common.uriBaseAnalyze +
+             common.uriBaseEmotion  +
              "?" + 
              $.param(params),
                     
@@ -226,18 +215,18 @@ function analyzeCanvasClick() {
  */
 function AnalyzeImageBlob(imageBlob, responseTextArea, captionSpan) {
     // Request parameters.
-    var params = {
-        "visualFeatures": "Categories,Description,Color",
-        "details": "",
-        "language": "en",
-    };
+    var params = { "returnFaceAttributes": "emotion" };
+    //     "visualFeatures": "Categories,Description,Color",
+    //     "details": "",
+    //     "language": "en",
+    // };
   
     // Perform the REST API call.
     $.ajax({
         url: common.uriBasePreRegion + 
              document.getElementById("subscriptionRegionSelect").value + 
              common.uriBasePostRegion + 
-             common.uriBaseAnalyze +
+             common.uriBaseEmotion  +
              "?" + 
              $.param(params),
                     
