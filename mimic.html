@@ -18,11 +18,8 @@
             </ul>
         </div>
         <div class="userInterface">
-            Your target face is "happy". Once you've taken a "happy" photo
-            <br><br>
-            Image to analyze: <input type="text" name="inputImage" id="inputImage" value="http://orig15.deviantart.net/c231/f/2013/287/1/d/shibe_land_by_janeisamaze-d6qhu3g.jpg" />
-            <button onclick="analyzeButtonClick()">Analyze Image</button>
-            <br><br>
+            Your target face is "happy". Once you've taken a "happy" photo below, submit it to Azure:
+            <button onclick="analyzeCanvasClick()">Analyze Selfie</button>
             <div class="wrapper">
                 <div class="jsonOutput">
                     Response:
@@ -38,7 +35,7 @@
               <div id="myOnlineCamera">
                   my online camera
                   <video muted autoplay></video>
-                  <canvas></canvas>
+                  <canvas id="selfieCanvas"></canvas>
                   <button id="photoButton">Take Photo!</button>
                   <button id="videoButton">Start the camera</button>
               </div>
