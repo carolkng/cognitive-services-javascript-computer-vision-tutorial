@@ -1,70 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Facial expression exercises</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="camera.css">
+  <title>Facial expression exercises</title>
+  <link rel="stylesheet" href="landing.css">
 </head>
 <body>
 <div class="page">
-    <div class="title"><h1>
-      Facial Expression Toolkit!
-      </h1><div>
-    <div class="container">
-        <div class="navigation">
-          Which exercise would you like to do?
-          <div id="mimic">
-            <div class="emoji-header">😀</div>
-          </div>
-          <div id="recognize">
-            <div class="emoji-header">🧐</div>
-          </div>
-            <ul>
-              <li><a href="mimic.html"     id="mimicLink">Mimic</a></li>
-              <li><a href="recognize.html" id="recogLink">Recognize faces</a></li>
-            </ul>
+  <div class="title"><h1>
+    Facial Expression Toolkit!
+  </h1></div>
+  <div class="container">
+      <div class="navigation">
+        Which exercise would you like to do?
+        <div id="mimic">
+          <a href="mimic.html">
+            <span class="emoji-header">😀</span>
+            <span>Express emotions</span>
+          </a>
         </div>
-        <div class="userInterface">
-            Enter the URL to an image of an image you want to analyze, the click the <strong>Analyze image</strong> button.
-            <br><br>
-            Image to analyze: <input type="text" name="inputImage" id="inputImage" value="https://lerablog.org/wp-content/uploads/2013/05/girl-with-beautiful-smile.jpg" />
-            <button onclick="analyzeButtonClick()">Analyze Image</button>
-            <br><br>
-            <div class="wrapper">
-                <div class="jsonOutput">
-                    Response:
-                    <br><br>
-                    <textarea id="responseTextArea" class="UIInput"></textarea>
-                </div>
-                <div class="pad"></div>
-                <div class="imageDiv">
-                    Source image:<br>
-                    <span id="captionSpan"></span><br>
-                    <img id="sourceImage" onerror="common.imageLoadError()"/>
-                </div>
-            </div>
-            <div class="subKeyDiv">
-                Subscription Key: 
-                <input 
-                    type="text" 
-                    class="subKeyInput" 
-                    name="subscriptionKeyInput" 
-                    id="subscriptionKeyInput" 
-                    onchange="common.subscriptionChange()" 
-                    value="Copy/paste your subscription key here." />
-                Subscription Region: 
-                <select name="subscriptionRegionSelect" id="subscriptionRegionSelect" onchange="common.subscriptionChange()">
-                    <option value="westus">westus</option>
-                    <option value="canadacentral">canadacentral</option>
-                </select>
-            </div>
+        <div id="recognize">
+          <a href="recognize.html">
+            <span class="emoji-header">🧐</span>
+            <span>Recognize emotions</span>
+          </a>
         </div>
-    </div>
+      </div>
+  </div>
 </div>
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-<script type="text/javascript" src="common.js"></script>
-<script type="text/javascript" src="camera.js"></script>
-<script type="text/javascript" src="analyze.js"></script>
 
 </html>

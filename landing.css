@@ -1,0 +1,31 @@
+.page { 
+    background-color: #d0d0d0; 
+    max-width: 1340px; 
+}
+.title { 
+    background-color: #e0e0e0; 
+    text-align: center; 
+}
+.container { 
+    display: flex; 
+}
+.wrapper { 
+    background-color: #f0f0f0; 
+    display: flex; 
+}
+
+ul { 
+    list-style-type: none; 
+    padding: 0; 
+    width: 200px; 
+}
+li a { 
+    display: block; 
+    color: #000000; 
+    padding: 8px 16px; 
+    text-decoration: none; 
+}
+li a:hover { 
+    background-color: #000555; 
+    color: white;
+}
