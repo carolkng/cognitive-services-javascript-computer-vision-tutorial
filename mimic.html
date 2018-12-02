@@ -57,6 +57,8 @@
                     value="Copy/paste your subscription key here." />
                 Subscription Region: 
                 <select name="subscriptionRegionSelect" id="subscriptionRegionSelect" onchange="common.subscriptionChange()">
+                    <option value="prefill-westus-cv">Prefill: West US CV</option>
+                    <option value="prefill-canada-cv">Prefill: Canada CV</option>
                     <option value="westcentralus">westcentralus</option>
                     <option value="westus">westus</option>
                     <option value="canadacentral">canadacentral</option>
@@ -110,9 +112,17 @@ function AnalyzeImage(sourceImageUrl, responseTextArea, captionSpan) {
                     
         // Request fheaders.
         beforeSend: function(jqXHR){
-            jqXHR.setRequestHeader("Content-Type","application/json");
-            jqXHR.setRequestHeader("Ocp-Apim-Subscription-Key", 
-                encodeURIComponent($("#subscriptionKeyInput").val()));
+          var sub = document.getElementById("subscriptionKeyInput");
+          if (sub.value === "prefill-westus-cv") {
+            sub = process.env.WEST_US_CV_SUB_KEY;
+          } else if (sub.value === "prefill-canada-cv") {
+            sub = process.env.CANADA_CV_SUB_KEY;
+          } else {
+            sub = sub.value
+          }
+          jqXHR.setRequestHeader("Content-Type","application/json");
+          jqXHR.setRequestHeader("Ocp-Apim-Subscription-Key", 
+              encodeURIComponent(sub));
         },
         
         type: "POST",
