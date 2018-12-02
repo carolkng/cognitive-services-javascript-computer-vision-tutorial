@@ -135,7 +135,9 @@ function analyzeButtonClick() {
     var sourceImageUrl = $("#inputImage").val();
     $("#sourceImage").attr("src", sourceImageUrl);
     
-    AnalyzeImage(sourceImageUrl, $("#responseTextArea"), $("#captionSpan"));
+    AnalyzeImage(sourceImageUrl, $("#responseTextArea"), $("#captionSpan"), function(data) {
+      console.log(data);
+    });
 }
 /* Analyze the image at the specified URL by using Microsoft Cognitive Services Analyze Image API.
  * @param {string} sourceImageUrl - The URL to the image to analyze.
@@ -144,7 +146,7 @@ function analyzeButtonClick() {
  *                             an error.
  * @param {<span> element} captionSpan - The span to display the image caption.
  */
-function AnalyzeImage(sourceImageUrl, responseTextArea, captionSpan) {
+function AnalyzeImage(sourceImageUrl, responseTextArea, captionSpan, callback) {
     // Request parameters.
     var params = { "returnFaceAttributes": "emotion" };
   
@@ -183,6 +185,7 @@ function AnalyzeImage(sourceImageUrl, responseTextArea, captionSpan) {
                     " (confidence: " + caption.confidence + ").");
             }
         }
+      callback(data);
     })
     
     .fail(function(jqXHR, textStatus, errorThrown) {
@@ -202,7 +205,10 @@ function AnalyzeImage(sourceImageUrl, responseTextArea, captionSpan) {
 function analyzeCanvasClick() {
   var canv = document.getElementById('selfieCanvas');
   canv.toBlob(function(blob) {
-    AnalyzeImageBlob(blob, document.getElementById('responseTextArea'), document.getElementById('captionSpan'));
+    AnalyzeImageBlob(blob, document.getElementById('responseTextArea'), document.getElementById('captionSpan'), function(emotions) {
+      console.log(emotions);
+      console.log(emotions[0]["faceAttributes"]["emotion"]);
+    });
   });
 }
 
@@ -213,7 +219,7 @@ function analyzeCanvasClick() {
  *                             an error.
  * @param {<span> element} captionSpan - The span to display the image caption.
  */
-function AnalyzeImageBlob(imageBlob, responseTextArea, captionSpan) {
+function AnalyzeImageBlob(imageBlob, responseTextArea, captionSpan, callback) {
     // Request parameters.
     var params = { "returnFaceAttributes": "emotion" };
     //     "visualFeatures": "Categories,Description,Color",
@@ -258,60 +264,10 @@ function AnalyzeImageBlob(imageBlob, responseTextArea, captionSpan) {
                     " (confidence: " + caption.confidence + ").");
             }
         }
+        callback(data);
     })
     
     .fail(function(jqXHR, textStatus, errorThrown) {
-        // Prepare the error string. 
-        var errorString = (errorThrown === "") ? "Error. " : errorThrown + " (" + jqXHR.status + "): ";
-        errorString += (jqXHR.responseText === "") ? "" : (jQuery.parseJSON(jqXHR.responseText).message) ? 
-            jQuery.parseJSON(jqXHR.responseText).message : jQuery.parseJSON(jqXHR.responseText).error.message;
-        
-        // Put the error JSON in the response textarea.
-        responseTextArea.value = JSON.stringify(jqXHR, null, 2);
-        
-        // Show the error message.
-        alert(errorString);
-    });
-}
-
-function getBlobEmotions(imageBlob, callback) {
-    var params = { "returnFaceAttributes": "emotion" };
-  
-    $.ajax({
-        url: common.uriBasePreRegion + 
-             document.getElementById("subscriptionRegionSelect").value + 
-             common.uriBasePostRegion + 
-             common.uriBaseEmotion  +
-             "?" + 
-             $.param(params),
-                    
-        // Request fheaders.
-        beforeSend: function(jqXHR){
-            jqXHR.setRequestHeader("Content-Type","application/octet-stream");
-            jqXHR.setRequestHeader("Ocp-Apim-Subscription-Key", 
-                encodeURIComponent(document.getElementById("subscriptionKeyInput").value ));
-        },
-        
-        type: "POST",
-        // Request body.
-        data: imageBlob,
-        processData: false,
-        
-    }).done(function(data) {
-        callback(data.scorse
-        // Show formatted JSON on webpage.
-        responseTextArea.value = JSON.stringify(data, null, 2);
-        
-        // Extract and display the caption and confidence from the first caption in the description object.
-        if (data.description && data.description.captions) {
-            var caption = data.description.captions[0];
-            
-            if (caption.text && caption.confidence) {
-                captionSpan.text("Caption: " + caption.text +
-                    " (confidence: " + caption.confidence + ").");
-            }
-        }
-    }).fail(function(jqXHR, textStatus, errorThrown) {
         // Prepare the error string. 
         var errorString = (errorThrown === "") ? "Error. " : errorThrown + " (" + jqXHR.status + "): ";
         errorString += (jqXHR.responseText === "") ? "" : (jQuery.parseJSON(jqXHR.responseText).message) ? 
