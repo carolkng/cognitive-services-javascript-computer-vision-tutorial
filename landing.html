@@ -1,31 +1,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Analyze</title>
+    <title>Facial expression exercises</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="camera.css">
 </head>
 <body>
 <div class="page">
-    <div class="title"><h2>Analyze</h2></div>
+    <div class="title"><h1>
+      Facial Expression Toolkit!
+      </h1><div>
     <div class="container">
         <div class="navigation">
-            Select a feature:
+          Which exercise would you like to do?
+          <div id="mimic">
+            <div class="emoji-header">😀</div>
+          </div>
+          <div id="recognize">
+            <div class="emoji-header">🧐</div>
+          </div>
             <ul>
-              <li><a href="index.html"     id="analyzeLink">Analyze</a></li>
               <li><a href="mimic.html"     id="mimicLink">Mimic</a></li>
               <li><a href="recognize.html" id="recogLink">Recognize faces</a></li>
             </ul>
         </div>
         <div class="userInterface">
-            Your target emotion is "<span class="emotion">happiness</span>".
-            <button onclick="analyzeCanvasClick()">Analyze Selfie</button>
+            Enter the URL to an image of an image you want to analyze, the click the <strong>Analyze image</strong> button.
+            <br><br>
+            Image to analyze: <input type="text" name="inputImage" id="inputImage" value="https://lerablog.org/wp-content/uploads/2013/05/girl-with-beautiful-smile.jpg" />
+            <button onclick="analyzeButtonClick()">Analyze Image</button>
+            <br><br>
             <div class="wrapper">
-              <div id="myOnlineCamera">
-                  <button id="photoButton">Take Photo!</button>
-                  <video muted autoplay></video>
-                  <canvas id="selfieCanvas"></canvas>
-              </div>
+                <div class="jsonOutput">
+                    Response:
+                    <br><br>
+                    <textarea id="responseTextArea" class="UIInput"></textarea>
+                </div>
+                <div class="pad"></div>
+                <div class="imageDiv">
+                    Source image:<br>
+                    <span id="captionSpan"></span><br>
+                    <img id="sourceImage" onerror="common.imageLoadError()"/>
+                </div>
             </div>
             <div class="subKeyDiv">
                 Subscription Key: 
@@ -46,11 +62,9 @@
     </div>
 </div>
 </body>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 <script type="text/javascript" src="common.js"></script>
 <script type="text/javascript" src="camera.js"></script>
 <script type="text/javascript" src="analyze.js"></script>
-  
 
 </html>
