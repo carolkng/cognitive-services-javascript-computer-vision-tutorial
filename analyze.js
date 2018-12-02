@@ -242,7 +242,7 @@ function AnalyzeImageBlob(imageBlob, responseTextArea, captionSpan) {
                     
         // Request fheaders.
         beforeSend: function(jqXHR){
-            jqXHR.setRequestHeader("Content-Type","application/json");
+            jqXHR.setRequestHeader("Content-Type","application/octet-stream");
             jqXHR.setRequestHeader("Ocp-Apim-Subscription-Key", 
                 encodeURIComponent(document.getElementById("subscriptionKeyInput").value ));
         },
@@ -250,7 +250,9 @@ function AnalyzeImageBlob(imageBlob, responseTextArea, captionSpan) {
         type: "POST",
         
         // Request body.
-        data: '{"url": ' + '"' + sourceImageUrl + '"}',
+        data: imageBlob,
+        processData: false,
+        
     })
     
     .done(function(data) {

@@ -12,41 +12,6 @@ var common = (function()
     var uriBasePreRegion = "https://";
     var uriBasePostRegion = ".api.cognitive.microsoft.com/vision/";
     var uriBaseAnalyze = "v1.0/analyze";
-    var uriBaseLandmark = "v1.0/models/landmarks/analyze";
-    var uriBaseCelebrities = "v1.0/models/celebrities/analyze";
-    var uriBaseThumbnail = "v1.0/generateThumbnail";
-    var uriBaseOcr = "v1.0/ocr";
-    var uriBaseHandwriting = "v1.0/recognizeText";
-
-    
-    var subscriptionChange = function()
-    {
-        // Build parameter string.
-        var paramString = "?subscriptionKey=" + 
-            encodeURIComponent(document.getElementById("subscriptionKeyInput").value) +
-            "&subscriptionRegion=" + 
-            encodeURIComponent(document.getElementById("subscriptionRegionSelect").value);
-        
-        // Update navagation links with new parameters.
-        for (var i = 0; i < navigationArray.length; ++i)
-        {
-            // Get the URL from the navigation array.
-            var urlString = navigationArray[i].href;
-        
-            // Check for existing URL parameters.
-            var pos = urlString.indexOf("?");
-            if (pos === -1)
-            {
-                // No URL parameters are attached to the navigation URLs.
-                navigationArray[i].href = urlString + paramString;
-            }
-            else
-            {
-                // Trim off the existing URL parameters before adding the current parameters.
-                navigationArray[i].href = urlString.substring(0, pos) + paramString
-            }
-        }
-    };
 
     // Returns the value of the specified URL parameter.
     

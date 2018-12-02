@@ -1,4 +1,4 @@
-document.querySelector("#videoButton").addEventListener("click", function() {
+window.addEventListener("load", function() {
   var videoObj    = { "video": true },
       errBack        = function(error){
           alert("Video capture error: ", error.code);
