@@ -13,15 +13,12 @@
             Select a feature:
             <ul>
               <li><a href="index.html"     id="analyzeLink">Analyze</a></li>
-              <li><a href="landmark.html"    id="landmarkLink">Landmark</a></li>
-              <li><a href="celebrities.html" id="celebritiesLink">Celebrity</a></li>
-              <li><a href="thumbnail.html"   id="thumbnailLink">Thumbnail</a></li>
-              <li><a href="ocr.html"         id="ocrLink">OCR</a></li>
-              <li><a href="handwriting.html" id="handwritingLink">Read Handwritten Text</a></li>
+              <li><a href="mimic.html"     id="mimicLink">Mimic</a></li>
+              <li><a href="recognize.html" id="recogLink">Recognize faces</a></li>
             </ul>
         </div>
         <div class="userInterface">
-            Enter the URL to an image of an image you want to analyze, the click the <strong>Analyze image</strong> button.
+            Your target face is "happy". Once you've taken a "happy" photo
             <br><br>
             Image to analyze: <input type="text" name="inputImage" id="inputImage" value="http://orig15.deviantart.net/c231/f/2013/287/1/d/shibe_land_by_janeisamaze-d6qhu3g.jpg" />
             <button onclick="analyzeButtonClick()">Analyze Image</button>
@@ -57,9 +54,6 @@
                     value="Copy/paste your subscription key here." />
                 Subscription Region: 
                 <select name="subscriptionRegionSelect" id="subscriptionRegionSelect" onchange="common.subscriptionChange()">
-                    <option value="prefill-westus-cv">Prefill: West US CV</option>
-                    <option value="prefill-canada-cv">Prefill: Canada CV</option>
-                    <option value="westcentralus">westcentralus</option>
                     <option value="westus">westus</option>
                     <option value="canadacentral">canadacentral</option>
                 </select>

@@ -89,13 +89,8 @@ var common = (function()
     {
         // Initialize the array of navigation links. 
         navigationArray = [
-            document.getElementById("analyzeLink"),
-            document.getElementById("analyzeLink"),
-            document.getElementById("landmarkLink"),
-            document.getElementById("celebritiesLink"),
-            document.getElementById("thumbnailLink"),
-            document.getElementById("ocrLink"),
-            document.getElementById("handwritingLink")
+            document.getElementById("mimicLink"),
+            document.getElementById("recogLink")
         ];
         
         // Extract URL parameters into the subscription key elements.
@@ -162,20 +157,11 @@ function AnalyzeImage(sourceImageUrl, responseTextArea, captionSpan) {
         "details": "",
         "language": "en",
     };
-    
-    var sub = document.getElementById("subscriptionKeyInput");
-    if (sub.value === "prefill-westus-cv") {
-      sub.key = process.env.WEST_US_CV_SUB_KEY;
-      sub.value = "westus";
-    } else if (sub.value === "prefill-canada-cv") {
-      sub.key = process.env.CANADA_CV_SUB_KEY;
-      sub.value = "canadacentral"
-    }
   
     // Perform the REST API call.
     $.ajax({
         url: common.uriBasePreRegion + 
-             sub.value + 
+             document.getElementById("subscriptionRegionSelect").value + 
              common.uriBasePostRegion + 
              common.uriBaseAnalyze +
              "?" + 
@@ -183,9 +169,9 @@ function AnalyzeImage(sourceImageUrl, responseTextArea, captionSpan) {
                     
         // Request fheaders.
         beforeSend: function(jqXHR){
-          jqXHR.setRequestHeader("Content-Type","application/json");
-          jqXHR.setRequestHeader("Ocp-Apim-Subscription-Key", 
-              encodeURIComponent(sub.value));
+            jqXHR.setRequestHeader("Content-Type","application/json");
+            jqXHR.setRequestHeader("Ocp-Apim-Subscription-Key", 
+                encodeURIComponent(document.getElementById("subscriptionKeyInput").value ));
         },
         
         type: "POST",
