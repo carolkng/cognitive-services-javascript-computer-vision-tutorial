@@ -273,3 +273,54 @@ function AnalyzeImageBlob(imageBlob, responseTextArea, captionSpan) {
         alert(errorString);
     });
 }
+
+function getBlobEmotions(imageBlob, callback) {
+    var params = { "returnFaceAttributes": "emotion" };
+  
+    $.ajax({
+        url: common.uriBasePreRegion + 
+             document.getElementById("subscriptionRegionSelect").value + 
+             common.uriBasePostRegion + 
+             common.uriBaseEmotion  +
+             "?" + 
+             $.param(params),
+                    
+        // Request fheaders.
+        beforeSend: function(jqXHR){
+            jqXHR.setRequestHeader("Content-Type","application/octet-stream");
+            jqXHR.setRequestHeader("Ocp-Apim-Subscription-Key", 
+                encodeURIComponent(document.getElementById("subscriptionKeyInput").value ));
+        },
+        
+        type: "POST",
+        // Request body.
+        data: imageBlob,
+        processData: false,
+        
+    }).done(function(data) {
+        callback(data.scorse
+        // Show formatted JSON on webpage.
+        responseTextArea.value = JSON.stringify(data, null, 2);
+        
+        // Extract and display the caption and confidence from the first caption in the description object.
+        if (data.description && data.description.captions) {
+            var caption = data.description.captions[0];
+            
+            if (caption.text && caption.confidence) {
+                captionSpan.text("Caption: " + caption.text +
+                    " (confidence: " + caption.confidence + ").");
+            }
+        }
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+        // Prepare the error string. 
+        var errorString = (errorThrown === "") ? "Error. " : errorThrown + " (" + jqXHR.status + "): ";
+        errorString += (jqXHR.responseText === "") ? "" : (jQuery.parseJSON(jqXHR.responseText).message) ? 
+            jQuery.parseJSON(jqXHR.responseText).message : jQuery.parseJSON(jqXHR.responseText).error.message;
+        
+        // Put the error JSON in the response textarea.
+        responseTextArea.value = JSON.stringify(jqXHR, null, 2);
+        
+        // Show the error message.
+        alert(errorString);
+    });
+}
