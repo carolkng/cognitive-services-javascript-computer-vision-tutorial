@@ -10,8 +10,9 @@ var common = (function()
     var navigationArray;
     
     var uriBasePreRegion = "https://";
-    var uriBasePostRegion = ".api.cognitive.microsoft.com/vision/";
+    var uriBasePostRegion = ".api.cognitive.microsoft.com/vision";
     var uriBaseAnalyze = "v1.0/analyze";
+    var uriBaseEmotion = "v1.0/emotion
     var uriBaseLandmark = "v1.0/models/landmarks/analyze";
     var uriBaseCelebrities = "v1.0/models/celebrities/analyze";
     var uriBaseThumbnail = "v1.0/generateThumbnail";
