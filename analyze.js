@@ -136,7 +136,25 @@ function analyzeButtonClick() {
     $("#sourceImage").attr("src", sourceImageUrl);
     
     AnalyzeImage(sourceImageUrl, $("#responseTextArea"), $("#captionSpan"), function(data) {
-      console.log(data);
+        var captionSpan = document.getElementById('captionSpan');
+        // Extract and display the caption and confidence from the first caption in the description object.
+        if (data.length > 1) {
+            var emotion = data[0].faceAttributes.emotion;
+            var maxEmotion = "", confidence = 0;
+            for (var property in emotion) {
+                if (emotion.hasOwnProperty(property)) {
+                    if (emotion.property > confidence) {
+                      maxEmotion = property;
+                      confidence = emotion[property];
+                    }
+                }
+            }
+            
+            captionSpan.text("Emotion: " + maxEmotion + " (confidence: " + confidence + ").");
+        } else {
+          captionSpan.text("Not a face!");
+          alert("Not a face!");
+        }
     });
 }
 /* Analyze the image at the specified URL by using Microsoft Cognitive Services Analyze Image API.
@@ -175,16 +193,7 @@ function AnalyzeImage(sourceImageUrl, responseTextArea, captionSpan, callback) {
     .done(function(data) {
         // Show formatted JSON on webpage.
         responseTextArea.val(JSON.stringify(data, null, 2));
-        
-        // Extract and display the caption and confidence from the first caption in the description object.
-        if (data.description && data.description.captions) {
-            var caption = data.description.captions[0];
-            
-            if (caption.text && caption.confidence) {
-                captionSpan.text("Caption: " + caption.text +
-                    " (confidence: " + caption.confidence + ").");
-            }
-        }
+      
       callback(data);
     })
     
